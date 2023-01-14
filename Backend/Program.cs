@@ -1,4 +1,5 @@
-﻿using VATHelper.Interfaces;
+﻿using VATHelper.Database;
+using VATHelper.Interfaces;
 using VATHelper.Workers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,9 @@ builder.Services.AddTransient<ITransactionWorker, TransactionWorker>();
 builder.Services.AddTransient<ITransactionInputTransformer, TransactionTransformer>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
+
+// Adding the DbContext
+builder.Services.AddDbContext<TransactionContext>();
 
 
 var app = builder.Build();

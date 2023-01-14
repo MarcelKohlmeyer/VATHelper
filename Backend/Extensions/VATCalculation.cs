@@ -3,18 +3,19 @@ namespace VATHelper.Extensions;
 
 public static class VATCalculation
 {
+    private const decimal TaxRate = (decimal)0.19;
     public static decimal NetToGross(this decimal input)
     {
-        return input * Transaction.TaxRate;
+        return input * (TaxRate + decimal.One);
     }
 
     public static decimal GrossToNet(this decimal input)
     {
-        return input / Transaction.TaxRate;
+        return input / (TaxRate + decimal.One);
     }
 
     public static decimal GetNetSum(this List<TransactionPosition> positions)
     {
-        return positions.Aggregate((decimal)0, (acc, x) => acc + x.TotalPrice);
+        return positions.Aggregate(decimal.Zero, (acc, x) => acc + x.TotalPrice);
     }
 }
